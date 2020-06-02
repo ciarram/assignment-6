@@ -1,0 +1,25 @@
+{
+  "name": "assignment-6",
+  "version": "1.0.0",
+  "description": "Creates a table to record exercise sets",
+  "main": "mysql-table.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ciarram/assignment-6.git"
+  },
+  "author": "Ciarra Murphy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ciarram/assignment-6/issues"
+  },
+  "homepage": "https://github.com/ciarram/assignment-6#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "express-handlebars": "^4.0.4",
+    "express-session": "^1.17.1"
+  }
+}
