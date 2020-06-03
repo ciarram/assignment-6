@@ -1,23 +1,23 @@
 <h4>Fill in the Form Inputs to Add the Data to the Table</h4>
 <form>
     <label>Name of Exercise:
-        <input type="text" name="name" maxlength="100">
+        <input type="text" name="name" id="newName" maxlength="100">
     </label>
 
     <label>Number of Reps:
-        <input type="number" name="reps" min="1" max="50">
+        <input type="number" name="reps" id="newRep" min="1" max="50">
     </label>
 
     <label>Weight of Weights:
-        <input type="number" name="weights" min="1" max="200">
+        <input type="number" name="weights" id="newWeight" min="1" max="200">
     </label>
 
     <label>Date:
-        <input type="date" name="date">
+        <input type="date" name="date" id="newDate">
     </label>
 
     <label>Unit of Weight:
-        <input type="text" name="unit">
+        <input type="text" name="unit" id="newUnit">
     </label>
 
     <input type="submit" id="addToTable">
@@ -31,8 +31,8 @@
             <th>Name</th>
             <th>Reps</th>
             <th>Weight</th>
-            <th>Units</th>
             <th>Date</th>
+            <th>Units</th>
         </tr>
     </thead>
     <tbody>
