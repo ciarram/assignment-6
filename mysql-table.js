@@ -7,30 +7,54 @@ var handlebars = require('express-handlebars').create({defaultLayout:'main'});
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 app.set('port', 60790);
-
-
-//app.get('/', function(req,res,next){
-    //var selectTable = {};
-    //mysql.pool.query('SELECT * FROM workouts', function(err, rows, fields){
-        //if(err){
-            //next(err);
-            //return;
-        //}
-        //selectTable.results = JSON.stringify(rows);
-        //res.render('home', selectTable);
-    //});
-//});
+app.use(express.static('public'));
 
 app.get('/', function(req,res,next){
-    var insetData = {};
-    mysql.pool.query("INSERT INTO workouts(`name`, `reps`, `weight`, `date`, `lbs`) VALUES(?, ?, ?, ?, ?)", [req.query.response], function(err, result){
+    var selectTable = {};
+    mysql.pool.query('SELECT * FROM workouts', function(err, rows, fields){
         if(err){
             next(err);
             return;
         }
-        console.log(context.results);
+        selectTable.results = JSON.stringify(rows);
+        res.render('home', selectTable);
+    });
+});
+
+app.get('/', function(req,res,next){
+    var insetData = {};
+    mysql.pool.query("INSERT INTO workouts(`name`, `reps`, `weight`, `date`, `lbs`) VALUES(?, ?, ?, ?, ?)", [req.query.name, req.query.reps, req.query.weight, req.query.date, req.query.lbs], function(err, result){
+        if(err){
+            next(err);
+            return;
+        }
+        console.log(insertData.results);
         res.render('home',insertData);
     })
+})
+
+app.get('/', function(req,res,next){
+    var deleteRow = {};
+    mysql.pool.query("DELETE FROM workouts WHERE id=?", function(err, rows, fields){
+        if(err){
+            next(err);
+            return;
+        }
+        deleteRow.results = "Deleted id " + result.deleteId
+        res.render('home', deleteRow)
+    })
+})
+
+app.get('/', function(req,res,next){
+    var editRow = {};
+    mysql.pool.query("UPDATE workouts SET name=?, reps=?, weight=?, date=?, lbs=?", [req.query.name, req.query.reps, rep.query.weight, req.query.date, req.query.lbs], function(err, result){
+        if(err){
+            next(err);
+            return;
+        }
+        editRow.results = "Updated " + result.changedRows + " rows.";
+        res.render('home', editRow);
+    });
 })
 
 // added the code from the assignment page for testing
