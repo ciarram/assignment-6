@@ -20,12 +20,12 @@
         <input type="text" name="unit" id="newUnit">
     </label>
 
-    <input type="submit" id="addToTable">
+    <input type="submit" value ="add to table" id="addToTable">
 </form>
 <br/>
 <br/>
 <br/>
-<table>
+<table id="exerciseTable">
     <thead>
         <tr>
             <th>Name</th>
@@ -38,12 +38,13 @@
     <tbody>
         {{#each results}}
             <tr>
+                <td style="display: none;" id="deleteId">{{this.id}}</td>
                 <td>{{this.name}}</td>
                 <td>{{this.reps}}</td>
                 <td>{{this.weight}}</td>
                 <td>{{this.date}}</td>
                 <td>{{this.unit}}</td>
-                <td><input type="button" value="delete"></td>
+                <td><input type="button" value="delete" onclick="deleteRow('exerciseTable', this)"></td>
                 <td><input type="button" value="edit"></td>
             </tr>
         {{/each}}

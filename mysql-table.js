@@ -36,7 +36,7 @@ app.get('/', function(req,res,next){
 });
  
 app.post('/', function(req,res,next){
-    var insertData = {};
+    var selectTable = {};
     var {name, reps, weight, date, unit} = req.body;
     console.log("In the App.Post " + name);
     console.log("In the App.Post " + reps);
@@ -45,20 +45,25 @@ app.post('/', function(req,res,next){
             next(err);
             return;
         }
-        console.log("Data results " + result);
-        insertData.results = "Inserted id " + result.insertedId;
-        res.render('home',  insertData);
+        //let newRow = {"name":name, "reps":reps, "weight":weight, "date":date, "unit":unit};
+        //newList.push(newRow);
+        selectTable.results = newList;
+        res.render('home', selectTable);
     })
 })
 
 app.delete('/', function(req,res,next){
     var deleteRow = {};
-    mysql.pool.query("DELETE FROM workouts WHERE id=?", function(err, rows, fields){
+    var {id} = req.body
+    console.log("In App.Delete!");
+    console.log("Delete Id " + id);
+    mysql.pool.query("DELETE FROM workouts WHERE id=?", [id], function(err, rows, fields){
         if(err){
             next(err);
             return;
         }
-        deleteRow.results = "Deleted id " + result.deleteId
+        //deleteRow.results = "Deleted id " + result.deleteId
+        console.log(deleteRow.results);
         res.render('home', deleteRow)
     })
 })
