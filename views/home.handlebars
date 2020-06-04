@@ -1,5 +1,5 @@
 <h4>Fill in the Form Inputs to Add the Data to the Table</h4>
-<form>
+<form action="/" method="post">
     <label>Name of Exercise:
         <input type="text" name="name" id="newName" maxlength="100">
     </label>
@@ -9,7 +9,7 @@
     </label>
 
     <label>Weight of Weights:
-        <input type="number" name="weights" id="newWeight" min="1" max="200">
+        <input type="number" name="weight" id="newWeight" min="0" max="200">
     </label>
 
     <label>Date:
@@ -36,7 +36,16 @@
         </tr>
     </thead>
     <tbody>
-        <input type="button" value="delete">
-        <input type="button" value="edit">
+        {{#each results}}
+            <tr>
+                <td>{{this.name}}</td>
+                <td>{{this.reps}}</td>
+                <td>{{this.weight}}</td>
+                <td>{{this.date}}</td>
+                <td>{{this.unit}}</td>
+                <td><input type="button" value="delete"></td>
+                <td><input type="button" value="edit"></td>
+            </tr>
+        {{/each}}
     </tbody>
 </table>
