@@ -2,6 +2,7 @@
 
 document.addEventListener('DOMContentLoaded', insertRow);
 
+
 function insertRow(){
     document.getElementById("addToTable").addEventListener('click', function(event){
         var req = new XMLHttpRequest();
@@ -11,6 +12,22 @@ function insertRow(){
         req.setRequestHeader('Content-Type', 'application/json');
 
         console.log("In Static JSON " + JSON.stringify(newRow));
+        //var table = document.getElementById("exerciseTable");
+        //var row = table.insertRow(-1);
+        //var newCellId = row.insertCell(0);
+        //var newCellName = row.insertCell(0);
+        //var newCellReps = row.insertCell(1);
+        //var newCellWeight = row.insertCell(2);
+        //var newCellDate = row.insertCell(3);
+        //var newCellUnit = row.insertCell(4);
+        //var newCellDelete = row.insertCell(5);
+        //var newCellEdit = row.insertCell(6);
+        //newCellName.innerHTML= newRow["name"];
+        //newCellReps.innerHTML = newRow["reps"];
+        //newCellWeight.innerHTML = newRow["weight"];
+        //newCellDate.innerHTML = newRow["date"];
+        //newCellUnit.innerHTML = newRow["unit"];
+        //newCellDelete.innerHTML = '<button type="button" value="delete" onclick="deleteRow("exerciseTable",this)">Delete</button>';
         req.send(JSON.stringify(newRow));
 
         event.preventDefault();
@@ -23,7 +40,8 @@ function deleteRow(tableId, currentRow){
     var removeTable = document.getElementById("exerciseTable");
     var countRow = removeTable.rows.length;
     var req = new XMLHttpRequest();
-    var removeRow = {id:document.getElementById("deleteId").value}
+    var removeRow = {id:document.getElementById("deleteId").innerHTML}
+    console.log("Remove Row " + removeRow);
 
     // loops through the table to find the id to delete
     for (var i = 0; i < countRow; i++){

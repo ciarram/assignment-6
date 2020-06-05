@@ -12,11 +12,19 @@ app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 app.use(express.static('public'));
 
-//setting this up as a global variable
-var newList = [];
+function printData(res){
+    mysql.pool.query('SELECT * FROM workouts', function(err, rows, fields){
+        if(err){
+            next(err);
+            return;
+        }
+        res.json({ rows: rows });
+    });
+};
 
 app.get('/', function(req,res,next){
     var selectTable = {};
+    var newList = [];
     console.log("In App.Get!");
     mysql.pool.query('SELECT * FROM workouts', function(err, rows, fields){
         if(err){
@@ -36,7 +44,7 @@ app.get('/', function(req,res,next){
 });
  
 app.post('/', function(req,res,next){
-    var selectTable = {};
+    var updateTable = {};
     var {name, reps, weight, date, unit} = req.body;
     console.log("In the App.Post " + name);
     console.log("In the App.Post " + reps);
@@ -45,26 +53,33 @@ app.post('/', function(req,res,next){
             next(err);
             return;
         }
+        printData(res);
+        console.log("Finished printData");
         //let newRow = {"name":name, "reps":reps, "weight":weight, "date":date, "unit":unit};
         //newList.push(newRow);
-        selectTable.results = newList;
-        res.render('home', selectTable);
-    })
-})
+        //newList.push(newRow);
+        //updateTable.results = newList;
+    
+        //updateTable.results = newList
+        //updateTable.results = newRow;
+        //res.json('home', updateTable);
+    });
+});
 
 app.delete('/', function(req,res,next){
     var deleteRow = {};
-    var {id} = req.body
     console.log("In App.Delete!");
-    console.log("Delete Id " + id);
-    mysql.pool.query("DELETE FROM workouts WHERE id=?", [id], function(err, rows, fields){
+    console.log(req.body);
+    console.log("Delete Id " + req.body.id);
+    mysql.pool.query("DELETE FROM workouts WHERE id=?", [req.body.id], function(err, rows, fields){
         if(err){
             next(err);
             return;
         }
         //deleteRow.results = "Deleted id " + result.deleteId
-        console.log(deleteRow.results);
-        res.render('home', deleteRow)
+        //console.log(deleteRow.results);
+        //deleteRow.results = newList;
+        //res.render('home', deleteRow);
     })
 })
 

@@ -16,14 +16,43 @@
         <input type="date" name="date" id="newDate">
     </label>
 
-    <label>Unit of Weight:
-        <input type="text" name="unit" id="newUnit">
+    <label>Unit of Weight: 
+        <input type="radio" name="unit" id="newUnit1" value="0">
+        <label for="newUnit1">lbs</label>
+        <input type="radio" name="unit" id="newUnit2" value="1">
+        <label for="newUnit2">kgs</label>
     </label>
-
-    <input type="submit" value ="add to table" id="addToTable">
+    
+    <input type="submit" value ="Add to Table" id="addToTable">
 </form>
 <br/>
 <br/>
+<form style="display: none;">
+    <label>Name of Exercise:
+        <input type="text" name="name" id="updateName" maxlength="100">
+    </label>
+
+    <label>Number of Reps:
+        <input type="number" name="reps" id="updateRep" min="1" max="50">
+    </label>
+
+    <label>Weight of Weights:
+        <input type="number" name="weight" id="updateWeight" min="0" max="200">
+    </label>
+
+    <label>Date:
+        <input type="date" name="date" id="updateDate">
+    </label>
+
+    <label> Unit of Weight:
+        <input type="radio" name="unit" id="updateUnit1" value="0">
+        <label for="updateUnit1">lbs</label>
+        <input type="radio" name="unit" id="updateUnit2" value="1">
+        <label for="updateUnit2">kgs</label>
+        </label>
+    <br/>
+    <input type="submit" value ="Edit Row" id="editTable">
+</form>
 <br/>
 <table id="exerciseTable">
     <thead>
@@ -37,13 +66,13 @@
     </thead>
     <tbody>
         {{#each results}}
-            <tr>
+            <tr id="renderRow">
                 <td style="display: none;" id="deleteId">{{this.id}}</td>
-                <td>{{this.name}}</td>
-                <td>{{this.reps}}</td>
-                <td>{{this.weight}}</td>
-                <td>{{this.date}}</td>
-                <td>{{this.unit}}</td>
+                <td id="renderName">{{this.name}}</td>
+                <td id="renderReps">{{this.reps}}</td>
+                <td id="renderWeight">{{this.weight}}</td>
+                <td id="renderDate">{{this.date}}</td>
+                <td id="renderUnit">{{this.unit}}</td>
                 <td><input type="button" value="delete" onclick="deleteRow('exerciseTable', this)"></td>
                 <td><input type="button" value="edit"></td>
             </tr>
