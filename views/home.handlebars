@@ -27,7 +27,7 @@
 </form>
 <br/>
 <br/>
-<form style="display: none;">
+<form style="display: none;" id="updateTableForm">
     <label>Name of Exercise:
         <input type="text" name="name" id="updateName" maxlength="100">
     </label>
@@ -50,8 +50,8 @@
         <input type="radio" name="unit" id="updateUnit2" value="1">
         <label for="updateUnit2">kgs</label>
         </label>
-    <br/>
-    <input type="submit" value ="Edit Row" id="editTable">
+    
+    <input type="submit" value ="Edit Row" id="editTable" onclick="reAddTable()">
 </form>
 <br/>
 <table id="exerciseTable">
@@ -65,17 +65,21 @@
         </tr>
     </thead>
     <tbody>
-        {{#each results}}
-            <tr id="renderRow">
-                <td style="display: none;" id="deleteId">{{this.id}}</td>
-                <td id="renderName">{{this.name}}</td>
-                <td id="renderReps">{{this.reps}}</td>
-                <td id="renderWeight">{{this.weight}}</td>
-                <td id="renderDate">{{this.date}}</td>
-                <td id="renderUnit">{{this.unit}}</td>
-                <td><input type="button" value="delete" onclick="deleteRow('exerciseTable', this)"></td>
-                <td><input type="button" value="edit"></td>
-            </tr>
-        {{/each}}
+        {{#if results}}
+            {{#each results}}
+                <tr id="renderRow">
+                    <td style="display: none;" id="deleteId">{{this.id}}</td>
+                    <td id="renderName">{{this.name}}</td>
+                    <td id="renderReps">{{this.reps}}</td>
+                    <td id="renderWeight">{{this.weight}}</td>
+                    <td id="renderDate">{{this.date}}</td>
+                    <td id="renderUnit">
+                        {{this.unit}}
+                    </td>
+                    <td><input type="button" value="delete" onclick="deleteRow('exerciseTable', this)"></td>
+                    <td><input type="button" value="edit" onclick="showEditForm('exerciseTable', this)"></td>
+                </tr>
+            {{/each}}
+        {{/if}}
     </tbody>
 </table>

@@ -12,13 +12,22 @@ app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 app.use(express.static('public'));
 
+
 function printData(res){
+    var table = {};
+    var newRow = [];
     mysql.pool.query('SELECT * FROM workouts', function(err, rows, fields){
         if(err){
             next(err);
             return;
         }
-        res.json({ rows: rows });
+        rows.forEach(function(newItem){
+            var n = newItem;
+            newRow.push(n);
+        });
+        table.results = newRow;
+        //res.send({ results: rows });
+        res.send(table);
     });
 };
 
@@ -31,8 +40,7 @@ app.get('/', function(req,res,next){
             next(err);
             return;
         }
-        //selectTable.results = JSON.stringify(rows);
-        //console.log(JSON.stringify(rows))
+        
         rows.forEach(function(item){
             var x = item;
             newList.push(x);
@@ -54,15 +62,6 @@ app.post('/', function(req,res,next){
             return;
         }
         printData(res);
-        console.log("Finished printData");
-        //let newRow = {"name":name, "reps":reps, "weight":weight, "date":date, "unit":unit};
-        //newList.push(newRow);
-        //newList.push(newRow);
-        //updateTable.results = newList;
-    
-        //updateTable.results = newList
-        //updateTable.results = newRow;
-        //res.json('home', updateTable);
     });
 });
 
@@ -76,22 +75,20 @@ app.delete('/', function(req,res,next){
             next(err);
             return;
         }
-        //deleteRow.results = "Deleted id " + result.deleteId
-        //console.log(deleteRow.results);
-        //deleteRow.results = newList;
-        //res.render('home', deleteRow);
     })
 })
 
 app.put('/', function(req,res,next){
     var editRow = {};
-    mysql.pool.query("UPDATE workouts SET name=?, reps=?, weight=?, date=?, unit=?", [req.query.name, req.query.reps, rep.query.weight, req.query.date, req.query.unit], function(err, result){
+    console.log("In the Edit App");
+    console.log(req.body);
+
+    mysql.pool.query("UPDATE workouts SET name=?, reps=?, weight=?, date=?, unit=? WHERE id=?", [req.body.name, req.body.reps, req.body.weight, req.body.date, req.body.unit, req.body.id], function(err, result){
         if(err){
             next(err);
             return;
         }
-        editRow.results = "Updated " + result.changedRows + " rows.";
-        res.render('home', editRow);
+        printData(res);
     });
 })
 
